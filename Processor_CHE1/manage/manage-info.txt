@@ -1,0 +1,12 @@
+Dec 02 2016:
+--------------
+
+- Starting with run 015 only processing extensions 1 thrugh 10 (eliminated last 4)
+- Changed the "opts" variable in the scripts 'computeOSI.py' and 'subtractCorrNoise.py'
+
+  from  opts = "-s 1 -s 2 -s 3 -s 4 -s 5 -s 6 -s 7 -s 8 -s 9 -s 10 -s 11 -s 12 -s 13 -s 14 -s 15 "
+    to  opts = "-s 1 -s 2 -s 3 -s 4 -s 5 -s 6 -s 7 -s 8 -s 9 -s 10 -s 11 "
+
+Fut day YEAR
+---------------
+

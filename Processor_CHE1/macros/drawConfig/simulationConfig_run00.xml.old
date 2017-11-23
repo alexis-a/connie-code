@@ -1,0 +1,63 @@
+
+
+<noise
+  default="0"
+/>
+
+<darkCurrent
+default="0"
+
+/>
+
+<gain
+default="1e6"
+ext1="0.1557"
+ext2="0.1557"
+ext3="0.1302"
+ext4="0.1396"
+ext5="0.1413"
+ext6="0.1622"
+ext7="0.1629"
+ext8="0.1475"
+ext9="0.137"
+ext10="0.1535"
+ext11="0.1514"
+ext12="0.1265"
+ext13="0.1243"
+ext14="0.14"
+ext15="0.128"
+/>
+
+<ccdConfig
+pixelSize="15"
+thickness="675"
+elecIonizEner = "3.745"
+/>
+
+<simulationConfig
+Nevents="500"
+randomSeed="0"
+/>
+
+<pointEvent
+EPDF = "1"
+EMin = "28"
+EMax = "5000"
+
+zPDF = "1"
+zMin = "0.01"
+zMax = "1.4"
+
+xPDF = "1"
+xMin = "9"
+xMax = "4121"
+
+yPDF = "1"
+yMin = "1"
+yMax = "1055"
+/>
+
+
+<diffusionModel
+default = "x"
+/>

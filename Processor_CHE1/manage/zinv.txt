@@ -1,0 +1,32 @@
+Hola Alexis
+ 
+estaba pensando cual seria la forma mas facil de invertir las imagenes
+con las herramientas disponibles en che.
+Creo que es bien simple. Lo unico que tenes que hacer es usar  la
+herramienta para restar imagenes:
+ 
+
+/share/storage1/connie/data_analysis/Processor/tools/subtractImages-master/subtractImages.exe
+ 
+primero tenes que hacerte un zero.fits restando   IMA.fits - IMA.fits = zero.fits 
+
+
+/share/storage1/connie/data_analysis/Processor/tools/subtractImages-master/s
+ubtractImages.exe
+run18_625_684_merged/scn_mbs_osi_runID_018_00684_Int-400_Exp-10800_15Jan17_1
+6\:06_to_15Jan17_19\:10.fits
+run18_625_684_merged/scn_mbs_osi_runID_018_00684_Int-400_Exp-10800_15Jan17_1
+6\:06_to_15Jan17_19\:10.fits -o zero.fits
+ 
+despues usas ese zeto.fits para invertir todas las imagenes  zero.fits -
+IMA.fits =  inv_IMA.fits
+ 
+Que te parece?
+Asi podriamos hacer una copia de run18, con todas las imagenes “scn”
+invertidas y despues volver a correr
+el extractor.
+ 
+ 
+Saludos,
+Juan
+

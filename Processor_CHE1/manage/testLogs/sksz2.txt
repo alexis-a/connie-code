@@ -1,0 +1,40 @@
+13-17 Jan, 2017
+
+Problem: catalog extraction truncated with no SaveTrackCuts and skirtSize=3
+Proposed solution: set skirtSize = 2.
+
+Below are the runIDs over which I tried regenerating the catlaog.
+
+runID	sksz=3				sksz=2					result
+-----------------------------------------------------------------------------------------------------
+ 00	ok				ok					good
+ 02	ok				tr 99% of runID 83 ohdu 3		worse
+003	ok				tr 100% of runID 118 ohdu 14		worse
+004	tr 27% of runID 162 ohdu 12	tr 98% of runID 162 ohdu 8		worse
+007	tr 100% of runID 216 ohdu 2	tr 42% of runID 202 ohdu 7		worse
+011	tr 6% of runID 307 ohdu 4	tr 100% of runID 309 ohdu 4		mild improvement
+015	ok				ok					good, but unnecessary
+018-1	tr 100% of runID 502 ohdu 8	ok					good, keep
+018-2	tr 66% of runID 564 ohdu 11	ok					good, keep
+
+Overall diagnostic of test:
+-----------------------------
+The extraction jobs for many of the runIDs were run simultaneously, 
+the problem seems to be caused by shortage of RAM memory during catalog extraction. 
+Seems to depend on memory conditions at the time of extracting the catalog. Could
+try to run some of these again without other processes running.
+
+Summary of actions
+
+runID	sksz=3	sksz=2	Action
+-----------------------------------------------------------------------
+ 00	ok	ok	revert, unnecessary
+ 02	ok	tr	revert, unnecessary
+003	ok	tr	revert, unnecessary
+004	tr	tr	revert, no improvement
+007	tr	tr	revert, try again w/o other processes running
+011	tr	tr	"
+015	ok	ok	revert, unnecessary
+018-1	tr	ok	keep
+018-2	tr	ok	keep
+-----------------------------------------------------------------------

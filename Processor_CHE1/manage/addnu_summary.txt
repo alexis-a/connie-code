@@ -1,0 +1,28 @@
+test_009
+Old config file with calibration constants for run 00 and no diffusion model.
+
+009
+previously test_009_fix
+Config file by Guillermo from unique catalog_238_to_302
+
+test_025
+17 oct 2017
+Calibration constants from Carla and diffusion model same as in run 009.
+
+00
+21 oct 2017
+Config file by Guillermo from unique catalog_29_to_50
+
+015
+21 oct 2017
+Config file by Guillermo from unique catalog__371_to_421
+
+026
+21 oct 2017
+Config file by Guillermo from 026a catalog_2389_to_2453
+
+025
+Not yet launched (script ready)
+Config file by Guillermo from 025a catalog 2037_to_2097
+
+
