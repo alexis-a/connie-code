@@ -1,0 +1,79 @@
+
+
+<noise
+default="0"
+/>
+
+<darkCurrent
+default="0"
+
+/>
+<!-- [gain]=e-/adu-->
+<gain
+default="0.15"
+ext2="0.17596"
+ext3="0.139907"
+ext4="0.163147"
+ext5="0.156996"
+ext6="0.165707"
+ext7="0.187778"
+ext8="0.142025"
+ext9="0.137335"
+ext10="0.1499"
+ext11="0.189458"
+
+ext13="0.13405"
+ext14="0.13992"
+ext15="0.124273"
+
+/>
+
+<ccdConfig
+pixelSize="15"
+thickness="675"
+elecIonizEner = "3.745"
+/>
+
+<simulationConfig
+Nevents="500"
+randomSeed="0"
+/>
+
+<pointEvent
+EPDF = "1"
+EMin = "28"
+EMax = "5000"
+
+zPDF = "1"
+zMin = "0.01"
+zMax = "675"
+
+xPDF = "1"
+xMin = "9"
+xMax = "4121"
+
+yPDF = "1"
+yMin = "1"
+yMax = "1055"
+/>
+
+
+<diffusionModel
+default = "1e6"
+ext2="sqrt(-1186.31*TMath::Log(1-0.000386777*x))/15 "
+ext3="sqrt(-654.239*TMath::Log(1-0.000599157*x))/15 "
+ext4="sqrt(-1020.64*TMath::Log(1-0.000419659*x))/15 "
+ext5="sqrt(-680.136*TMath::Log(1-0.00058241*x))/15 "
+ext6="sqrt(-567.289*TMath::Log(1-0.000671949*x))/15 "
+ext7="sqrt(-47290.5*TMath::Log(1-9.15216e-06*x))/15 "
+ext8="sqrt(-621.064*TMath::Log(1-0.000620067*x))/15 "
+ext9="sqrt(-832.459*TMath::Log(1-0.000468887*x))/15 "
+ext10="sqrt(-1297.2*TMath::Log(1-0.000313775*x))/15 "
+ext11="sqrt(-215*TMath::Log(1-0.0013*x))/15 "
+ext12="sqrt(-215*TMath::Log(1-0.0013*x))/15 "
+ext13="sqrt(-657.818*TMath::Log(1-0.000587957*x))/15 "
+ext14="sqrt(-544.445*TMath::Log(1-0.000716673*x))/15 "
+ext15="sqrt(-657.222*TMath::Log(1-0.000596842*x))/15 "
+
+/>
+

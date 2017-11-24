@@ -1,0 +1,43 @@
+
+
+<sigma
+  default="70.0"
+ 
+  ext2 = "77.0"
+  ext3 = "88.0"
+  ext4 = "60.0"
+  ext5 = "62.0"
+  ext6 = "48.0"
+  ext7 = "45.0"
+  ext8 = "75.0"
+  ext9 = "80.0"
+  ext10= "56.0"
+  ext11= "64.0"
+  ext12= "84.0"
+  ext13= "84.0"
+  ext14= "69.0"
+  ext15= "92.0"
+/>
+
+<calibration
+  default="1.0"
+  
+/>
+
+
+<thr
+  seed="4"
+  add="3.4"
+  skirtSize="3"
+/>
+
+<extra
+  saveTracks="1"
+  saveTrackCuts=""
+/> 
+  
+
+<systemConfig
+  stackSize="256"
+  hitMaxSize="5000"
+/>

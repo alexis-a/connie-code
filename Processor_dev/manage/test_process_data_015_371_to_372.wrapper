@@ -1,0 +1,92 @@
+#!/bin/bash
+
+#-----------------------------------------------------------------------------
+# Provide: run, first and last runId's to process
+
+RUN=015
+FID=371
+LID=372
+
+# raw data directory
+RAW_DATA_DIR=/share/storage2/connie/data/runs/$RUN
+
+# base output directory
+BASE_OUT_DIR=/share/storage2/connie/data_analysis/test_Processor/processed_data/runs/$RUN
+
+# Processing macros location
+MACROS_DIR=/share/storage2/connie/data_analysis/test_Processor/macros
+
+#----------------------------------------------------------------------------
+# Form processing script
+
+SUFFIX=$FID"_to_"$LID
+OUT_DIR=$BASE_OUT_DIR/data_$SUFFIX
+SCRIPT_NAME_STEM="test_process_data_"$RUN"_"$SUFFIX
+
+cat > $SCRIPT_NAME_STEM.shell <<EOF
+#!/bin/bash
+
+#-----------------------------------------------------------------------------
+# setup system
+source /home/connie_ana/setup-system.sh
+
+#-----------------------------------------------------------------------------
+# raw input data directory, first and last Id's to process
+
+RAW_DATA_DIR=$RAW_DATA_DIR
+FID=$FID
+LID=$LID
+
+# base output directory
+BASE_OUT_DIR=$BASE_OUT_DIR
+
+# Processing macros location
+MACROS_DIR=$MACROS_DIR
+
+#-----------------------------------------------------------------------------
+# output directory (will be created by makeList.py)
+SUFFIX=\$FID"_to_"\$LID
+OUT_DIR=\$BASE_OUT_DIR/data_\$SUFFIX
+
+# Create lists
+cd \$MACROS_DIR
+python ./makeList.py \$RAW_DATA_DIR \$BASE_OUT_DIR \$FID \$LID
+cd -
+
+# doAll
+cd \$MACROS_DIR
+./doAll.sh \$OUT_DIR
+cd -
+
+EOF
+
+chmod +x $SCRIPT_NAME_STEM.shell
+
+#----------------------------------------------------------------------------
+# Form slurm batch job script
+
+cat > $SCRIPT_NAME_STEM.slurm <<EOF
+#!/bin/bash
+
+#SBATCH --job-name=data_$SUFFIX
+#SBATCH --ntasks=1
+#SBATCH --time=01:00:00
+#SBATCH --output=data_$SUFFIX.log
+
+# setup system
+source /home/connie_ana/setup-system.sh
+
+srun $SCRIPT_NAME_STEM.shell
+
+cat data_$SUFFIX.log > $OUT_DIR/data_$SUFFIX.log
+
+EOF
+
+#----------------------------------------------------------------------------
+
+sbatch $SCRIPT_NAME_STEM.slurm
+squeue -u connie_ana
+
+echo
+echo DONE!
+echo

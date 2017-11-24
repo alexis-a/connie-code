@@ -1,0 +1,234 @@
+import time, os
+import subprocess
+import math
+import fileinput
+import sys
+
+#======= Configuration =============
+opts = ""
+macroDir = "./"
+mergePY = os.path.join(macroDir,"merge.py")
+extractConfig = os.path.join(os.getcwd(),"extractConfigFS.xml")
+parts = ["p1", "p2", "p3", "p4"]
+scnFilePrefix = "scn_mbs_osi_"
+scnFileSufix = ".fits"
+#===================================
+
+if len(sys.argv) <= 1:
+	print
+	print ">>>>>>> python mergeParts.py <base directory>"
+	print "<base directory> : directory where all the intermiate products of a set of images are stored"
+	print "Merges the 4 parts of the images (scn_mbs_osi_*.fits) in <base directory>/scn/images, "
+	print "and the 4 parts of the masks (mask6_*.fits) in <base directory>/mbs."
+	print "The merged images are stored in the directory <base directory/scn/merged>."
+	print "The merged mask is stored in the directory <base directory/mbs>."
+	print "Options: "
+	print
+	sys.exit(0)
+
+#get base directory
+baseDir = str(sys.argv[1])
+if baseDir.endswith(os.sep): 
+	baseDir = baseDir[0:-1]
+baseName = os.path.basename(baseDir)
+idInteval = baseName[5:]
+
+#check base directory
+if not os.path.isdir(baseDir):
+	print
+	print "<base directory> does not exist. The program will exit without processing."
+	print 
+	sys.exit(0)
+
+scnPath = os.path.join(baseDir,"scn")
+scnImagesPath = os.path.join(scnPath,"images")
+
+#check scn/images directory
+if not os.path.isdir(scnImagesPath):
+	print
+	print "The directory " + scnImagesPath + " does not exist. The program will exit without processing. Check procedure!"
+	print 
+	sys.exit(0)
+
+scnMergedPath = os.path.join(scnPath,"merged")
+
+#check scn/merged directory
+if os.path.isdir(scnMergedPath):
+        print
+	print "The directory " + scnMergedPath + " should not exist. The program will exit without processing. Check procedure!"
+        print
+	sys.exit(0)
+else:
+	#create scn/merged directory
+	os.makedirs(scnMergedPath)
+
+#list of files to process sorted by creation time
+fileList = os.listdir(scnImagesPath)
+fileTimeList = [(os.path.join(scnImagesPath,file),os.stat(os.path.join(scnImagesPath,file)).st_mtime)
+				 for file in fileList if file.startswith(scnFilePrefix) and file.endswith(scnFileSufix)]
+sortedList = sorted(fileTimeList, key=lambda fileTime: fileTime[1])
+fitsFileList = [row[0] for row in sortedList]
+
+#group files by part and create file lists
+partsFileList = []
+scnDir = os.path.join(baseDir,"scn")
+for i in range(0,len(parts)):
+
+	part = parts[i]
+	#list of files by part
+	partSufix = part + scnFileSufix
+	partsFileList.append([file for file in fitsFileList if file.endswith(partSufix)])
+
+#number of files in lists (use first list)
+listSize = len(partsFileList[0])
+
+#check list sizes are the same (A.A.-A. added 17Aug2017)
+ls1 = len(partsFileList[0])
+ls2 = len(partsFileList[1])
+ls3 = len(partsFileList[2])
+ls4 = len(partsFileList[3])
+missmatch = False
+if   ls1 != ls2:
+        print "Merge lists for p1 and p2 have not equal lengths!"
+        missmatch = True
+if ls1 != ls3:
+	print "Merge lists for p1 and p3 have not equal lengths!"
+        missmatch = True
+if ls1 != ls4:
+	print "Merge lists for p1 and p4 have not equal lengths!"
+        missmatch = True
+if ls2 != ls3:
+	print "Merge lists for p2 and p3 have not equal lengths!"
+        missmatch = True
+if ls2 != ls4:
+	print "Merge lists for p2 and p4 have not equal lengths!"
+        missmatch = True
+if ls3 != ls4:
+	print "Merge lists for p3 and p4 have not equal lengths!"
+        missmatch = True
+if not missmatch:
+        print "\nSizes of merge lists match ... [OK]\n"
+else:
+     	print"\nError: found missmatches in sizes of merging lists. Execution aborted.\n"
+        print ("(%d,%d,%d,%d)" % (ls1,ls2,ls3,ls4))
+        sys.exit(0)
+
+
+
+#masks parts
+maskFileName = []
+mbsDir = os.path.join(baseDir,"mbs")
+for i in range(0,len(parts)):
+	part = parts[i]
+	maskFileName.append(os.path.join(mbsDir,"mask6_sel_L_" + idInteval + "_" + part + ".fits"))
+	if not os.path.isfile(maskFileName[i]):
+		print
+		print "The mask file " + maskFileName[i] + " does not exist."
+		print "The program will exit without processing."
+		print 
+		sys.exit(0)
+
+######################
+# Function definition
+
+def merge4( p1, p2, p3, p4, mess , outpath):
+
+	t0 = time.time();
+	partList = [p1, p2, p3, p4]
+	for tst in partList:
+		if not os.path.isfile(p1):
+			print
+			print "The file " + tst + " does not exist."
+			print "The program will exit without processing."
+			print
+			sys.exit(0)
+
+	#partial and output  merged files
+	tempName12  = p1.replace(scnImagesPath,outpath).replace("_p1","_p1p2")
+	tempName123 = p1.replace(scnImagesPath,outpath).replace("_p1","_p1p2p3")
+	outName     = p1.replace(scnImagesPath,outpath).replace("_p1","")
+	outNameComp = outName.replace(".fits",".fits.fz")
+
+
+	print "\n"
+	print "merging " + mess + ":"
+	print "=============="
+	print "	" + p1
+	print "	" + p2
+	print "	" + p3
+	print "	" + p4
+	print "\nThe merged " + mess + " will be stored in:\n"
+	print "	" + outName
+	print
+
+	if os.path.isfile(tempName12):
+		print "WARNING: removing existing temp merge " + mess
+		print "\t" + tempName12
+		os.system("rm -f " + tempName12)
+        if os.path.isfile(tempName123):
+                print "WARNING: removing existing temp merge " + mess
+                print "\t" + tempName123                           
+                os.system("rm -f " + tempName123)
+        if os.path.isfile(outName):
+                print "WARNING: removing existing merged output " + mess
+                print "\t" + outName                           
+                os.system("rm -f " + outName)
+	if os.path.isfile(outNameComp):
+		print "WARNING: removing existing compressed merged output " + mess
+		print "\t" + outNameComp
+		os.system("rm -f " + outNameComp)
+
+	#define merging commands
+	merge12_cmd = "python -u " + mergePY + " " + p2 + " " + p1 + " " + tempName12
+	merge123_cmd = "python -u " + mergePY + " " + p3 + " " + tempName12 + " " + tempName123
+	merge1234_cmd = "python -u " + mergePY + " " + p4 + " " + tempName123 + " " + outName
+	cleanup_cmd="rm -f " + tempName12 + " " + tempName123
+
+	print "\nExecuting python merging script:\n"
+	os.system(merge12_cmd)
+	os.system(merge123_cmd)
+	os.system(merge1234_cmd)
+
+	print "Cleaning up ..."
+	print "\t"  + cleanup_cmd
+	os.system(cleanup_cmd)
+
+	print "\nMerging took: ", time.time() - t0 , " seconds."
+
+	# Compress merged file #disabled 22 sep 2016 A.A.-A.
+	#print "\nCompressing output file ..."
+	#os.system("$FITSIOROOT/fpack -v -Y -D " + outName);
+	#print "\nMerging and compressing took: ", time.time() - t0 , " seconds."
+
+
+	return
+
+#################
+# Merging mask
+#################
+
+maskp1 = maskFileName[0]
+maskp2 = maskFileName[1]
+maskp3 = maskFileName[2]
+maskp4 = maskFileName[3]
+
+merge4( maskp1, maskp2, maskp3, maskp4, "mask ", mbsDir )
+
+#################
+# Merging files
+#################
+
+for i in range(0,listSize):
+
+	filep1 = partsFileList[0][i]
+	filep2 = partsFileList[1][i]
+	filep3 = partsFileList[2][i]
+	filep4 = partsFileList[3][i]
+
+	merge4(filep1, filep2, filep3, filep4, "image", scnMergedPath)
+
+print
+print "Merging done!!"
+print
+
+
