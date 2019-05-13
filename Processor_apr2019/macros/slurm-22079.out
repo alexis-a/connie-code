@@ -1,0 +1,8 @@
+
+## Slurm job started on 22-04-2018 at 13:33:31 #####################
+sh: ../tools/extract/extract.exe: No such file or directory
+Mask file: /share/storage2/connie/nusims_analysis/processed02_draw/runs/009_066DC/drdc_246_to_302/mbs/mask6_sel_L_246_to_302.fits
+
+Extraction done!!
+
+## Slurm job finished on 22-04-2018 at 13:33:31 ####################

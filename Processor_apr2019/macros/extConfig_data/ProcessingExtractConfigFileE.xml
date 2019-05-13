@@ -1,0 +1,41 @@
+<sigma
+  default="16.78"
+  
+  ext2 = "17.25"
+  ext3 = "16.65"
+  ext4 = "16.76"
+  ext5 = "16.20"
+  ext6 = "15.43"
+  ext7 = "15.49"
+  ext8 = "16.32"
+  ext9 = "16.93"
+  ext10= "16.34"
+  ext11= "16.76"
+  ext12= "15.93"
+  ext13= "16.64"
+  ext14= "21.18"
+  ext15= "16.97"
+/>
+
+<calibration
+  default="1.0"
+  
+/>
+
+
+<thr
+  seed="4"
+  add="3.4"
+  skirtSize="1"
+/>
+
+<extra
+  saveTracks="1"
+  saveTrackCuts=""
+/> 
+  
+
+<systemConfig
+  stackSize="256"
+  hitMaxSize="5000"
+/>
