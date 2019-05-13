@@ -1,0 +1,10 @@
+
+## Slurm job started on 29-04-2018 at 14:27:16 #####################
+
+Input dir:  /share/storage2/connie/data/runs/009
+Conf file:  /share/storage2/connie/data_analysis/Processor/macros/drawConfig/simulationConfig_run009_238_to_302_plus_066DC.xml
+output dir: /home/connie_ana/sims/adddc_to_data/runs/009_066DC
+
+## Job name:                         adddc-sim
+## Job ID:                           22268
+/var/spool/slurm/d/job22268/slurm_script: line 49: /_runDC_009.log: Permission denied

@@ -1,0 +1,12 @@
+
+## Slurm job started on 07-11-2018 at 16:53:24 #####################
+
+Input dir:  /share/storage2/connie/data/runs/029
+Conf file:  /share/storage2/connie/data_analysis/Processor/macros/drawConfig/simulationConfig_run009_238_to_302_2feb2018.xml
+output dir: /home/connie_ana/sims/addnu_to_data/runs/029_with_009config
+
+
+## Slurm job finished on 08-11-2018 at 02:38:46 ####################
+## Job name:                         addnu-sim-029
+## Job ID:                           27795
+/var/spool/slurm/d/job27795/slurm_script: line 52: /_run_029.log: Permission denied

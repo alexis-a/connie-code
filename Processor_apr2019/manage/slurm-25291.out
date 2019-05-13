@@ -1,0 +1,34 @@
+
+## Slurm job started on 20-07-2018 at 09:06:57 #####################
+/var/spool/slurm/d/job25291/slurm_script: line 42: /share/storage2/connie/data_analysis/processed02_data/runs/031H/data_4113_to_4172/data_4113_to_4172.log: No such file or directory
+/var/spool/slurm/d/job25291/slurm_script: line 46: /share/storage2/connie/data_analysis/processed02_data/runs/031H/data_4113_to_4172/data_4113_to_4172.log: No such file or directory
+/share/storage2/connie/data_analysis/Processor/manage
+/var/spool/slurm/d/job25291/slurm_script: line 50: cd: /share/storage2/connie/data_analysis/processed02_data/runs/031H/data_4113_to_4172/ext/catalog: No such file or directory
+  *******************************************
+  *                                         *
+  *        W E L C O M E  to  R O O T       *
+  *                                         *
+  *   Version   5.34/36      5 April 2016   *
+  *                                         *
+  *  You are welcome to visit our Web site  *
+  *          http://root.cern.ch            *
+  *                                         *
+  *******************************************
+
+ROOT 5.34/36 (heads/v5-34-00-patches@v5-34-34-76-g57bae4c, Oct 20 2017, 20:16:00 on linuxx8664gcc)
+
+CINT/ROOT C/C++ Interpreter version 5.18.00, July 2, 2010
+Type ? for help. Commands must be C++ statements.
+Enclose multiple statements between { }.
+
+Processing ~alexisaa/scripts/skimc_v1.C("catalog_data_4113_to_4172.root")...
+Error in <TFile::TFile>: file catalog_data_4113_to_4172.root does not exist
+Error: illegal pointer to class object oldtree1 0x0 684  /home/alexisaa/scripts/skimc_v1.C:9:
+*** Interpreter error recovered ***
+mv: cannot stat ‘catalog.skim1.root’: No such file or directory
+/share/storage2/connie/data_analysis/Processor/macros
+## Slurm job finished on 20-07-2018 at 09:06:59 ####################
+## Job name:                         process_data_031H_4113_to_4172
+## Job ID:                           25291
+/var/spool/slurm/d/job25291/slurm_script: line 64: /share/storage2/connie/data_analysis/processed02_data/runs/031H/data_4113_to_4172/data_4113_to_4172.log: No such file or directory
+/var/spool/slurm/d/job25291/slurm_script: line 65: /share/storage2/connie/data_analysis/processed02_data/runs/031H/data_4113_to_4172/data_4113_to_4172.log: No such file or directory

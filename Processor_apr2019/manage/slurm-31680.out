@@ -1,0 +1,10 @@
+
+## Slurm job started on 28-01-2019 at 15:53:48 #####################
+
+Input dir:  /share/storage2/connie/data/runs/009
+Conf file:  /share/storage2/connie/data_analysis/Processor/macros/drawConfig/simulationConfig_run009_238_to_302_23nov2018.xml
+output dir: /share/storage2/connie/sims/addnu_to_data/runs/009_with_009higherenergyconfig
+
+## Job name:                         addnu-sim-009-extE
+## Job ID:                           31680
+/var/spool/slurm/d/job31680/slurm_script: line 48: /_run_009.log: Permission denied
